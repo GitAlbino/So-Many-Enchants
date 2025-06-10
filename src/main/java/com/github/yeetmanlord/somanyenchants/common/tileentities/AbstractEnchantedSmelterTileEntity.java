@@ -722,13 +722,12 @@ public abstract class AbstractEnchantedSmelterTileEntity extends BaseContainerBl
 
 		Optional<AbstractCookingRecipe> recipe = this.level.getRecipeManager().getRecipeFor((RecipeType<AbstractCookingRecipe>) this.recipeType, this, this.level);
 
-		if (recipe != null) {
+		if (recipe.isPresent()) { //recipe can be not null but empty, causing a NoSuchElementException error on the get below
 			AbstractCookingRecipe recipeObject = recipe.get();
 
 			if (recipeObject != null) {
 				return (int) (recipeObject.getCookingTime() / cookTimeMult);
 			}
-
 		}
 
 		return (int) (200 / cookTimeMult);
